@@ -949,25 +949,131 @@
             </h2>
             
             <div class="form-group">
-                <label for="template-select">Choose a Template</label>
-                <div class="resume-templates" id="templateGallery">
-                    <div class="template active" data-template="template-1">
-                        <div class="template-badge">Most Popular</div>
-                        <img src="https://via.placeholder.com/300x400/4361ee/ffffff?text=Professional" alt="Professional Template">
-                    </div>
-                    <div class="template" data-template="template-2">
-                        <img src="https://via.placeholder.com/300x400/3f37c9/ffffff?text=Modern" alt="Modern Template">
-                    </div>
-                    <div class="template" data-template="template-3">
-                        <img src="https://via.placeholder.com/300x400/f72585/ffffff?text=Creative" alt="Creative Template">
-                    </div>
-                </div>
-                <select id="template-select" class="no-print">
-                    <option value="template-1">Professional</option>
-                    <option value="template-2">Modern</option>
-                    <option value="template-3">Creative</option>
-                </select>
-            </div>
+    <label for="template-select">Choose a Template</label>
+    <div class="resume-templates" id="templateGallery">
+        <div class="template active" data-template="template-1">
+            <div class="template-badge">Most Popular</div>
+            <img src="https://images.unsplash.com/photo-1629904853893-c2c8981a1dc5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=300&h=400&q=80" 
+                 alt="Professional Template"
+                 class="template-img">
+        </div>
+        <div class="template" data-template="template-2">
+            <img src="https://images.unsplash.com/photo-1546410531-bb4caa6b424d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=300&h=400&q=80" 
+                 alt="Modern Template"
+                 class="template-img">
+        </div>
+        <div class="template" data-template="template-3">
+            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=300&h=400&q=80" 
+                 alt="Creative Template"
+                 class="template-img">
+        </div>
+    </div>
+    <select id="template-select" class="no-print">
+        <option value="template-1">Professional</option>
+        <option value="template-2">Modern</option>
+        <option value="template-3">Creative</option>
+    </select>
+</div>
+
+<style>
+    .resume-templates {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .template {
+        border: 2px solid #e0e0e0;
+        border-radius: var(--radius);
+        overflow: hidden;
+        cursor: pointer;
+        transition: var(--transition);
+        position: relative;
+    }
+    
+    .template:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-md);
+        border-color: var(--primary-light);
+    }
+    
+    .template-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        transition: var(--transition);
+    }
+    
+    .template:hover img {
+        transform: scale(1.02);
+    }
+    
+    .template.active {
+        border-color: var(--primary);
+        box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+    }
+    
+    .template-badge {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background-color: var(--primary);
+        color: white;
+        padding: 0.3rem 0.6rem;
+        border-radius: 20px;
+        font-size: 0.7rem;
+        font-weight: 600;
+    }
+    
+    #template-select {
+        width: 100%;
+        padding: 0.8rem 1rem;
+        border: 1px solid #e0e0e0;
+        border-radius: var(--radius);
+        font-family: inherit;
+        font-size: 1rem;
+        transition: var(--transition);
+        background-color: #f9f9f9;
+        margin-top: 1rem;
+    }
+    
+    #template-select:focus {
+        outline: none;
+        border-color: var(--primary-light);
+        box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.15);
+        background-color: white;
+    }
+</style>
+
+<script>
+    // Template selection functionality
+    const templates = document.querySelectorAll('.template');
+    const templateSelect = document.getElementById('template-select');
+    
+    templates.forEach(template => {
+        template.addEventListener('click', function() {
+            // Remove active class from all templates
+            templates.forEach(t => t.classList.remove('active'));
+            // Add active class to clicked template
+            this.classList.add('active');
+            // Update select dropdown
+            templateSelect.value = this.dataset.template;
+        });
+    });
+    
+    templateSelect.addEventListener('change', function() {
+        const selectedTemplate = this.value;
+        // Update active template in gallery
+        templates.forEach(t => {
+            t.classList.remove('active');
+            if(t.dataset.template === selectedTemplate) {
+                t.classList.add('active');
+            }
+        });
+    });
+</script>
             
             <h3 class="section-subtitle">
                 <i class="fas fa-user"></i>
